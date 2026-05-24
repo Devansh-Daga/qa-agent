@@ -10,12 +10,19 @@ from api_tester.api_tester import run_api_tests
 from bug_detector.bug_detector import process_failures
 from reporter.report_generator import generate_report
 from notifier.slack_notifier import send_slack_notification
-
+from runner.test_generator import generate_tests
 
 def run_qa_agent():
     print("\n" + "="*60)
     print("  🤖 QA AGENT — FULL RUN STARTING")
     print("="*60)
+
+    # ── Step 0: AI generates missing tests ────────────────────
+    print("\n🤖 STEP 0/4 — AI generating missing tests...\n")
+    generate_tests(
+        source_path="sample_project/calculator.py",
+        test_path="sample_project/tests/test_calculator.py"
+    )
 
     # ── Step 1: Run unit + integration tests ──────────────────
     print("\n📋 STEP 1/4 — Running unit tests + coverage...\n")
